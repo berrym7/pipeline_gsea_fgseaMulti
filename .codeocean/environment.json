@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"base_image": "codeocean/pytorch:2.1.0-cuda11.8.0-mambaforge23.1.0-4-python3.10.12-ubuntu22.04",
+	"base_image": "codeocean/py-r:python3.10.12-R4.2.3-IRkernel-ubuntu22.04",
 	"options": {
 		"registry_host_arg": true,
 		"git_ask_pass": true
@@ -9,17 +9,43 @@
 		"pip": {
 			"packages": [
 				{
-					"name": "click"
+					"name": "click",
+					"version": "8.1.7"
 				},
 				{
-					"name": "gseapy"
+					"name": "gseapy",
+					"version": "1.1.3"
 				},
 				{
-					"name": "pandas"
+					"name": "pandas",
+					"version": "2.2.3"
 				}
 			],
 			"options": {},
 			"pre_install_options": {}
+		},
+		"rbioconductor": {
+			"packages": [
+				{
+					"name": "fgsea",
+					"version": "1.24.0"
+				}
+			],
+			"r_version": "4.2.3",
+			"install_bioconductor": true
+		},
+		"rcran": {
+			"packages": [
+				{
+					"name": "data.table",
+					"version": "1.16.2"
+				},
+				{
+					"name": "optparse",
+					"version": "1.7.5"
+				}
+			],
+			"use_rcache": true
 		}
 	}
 }

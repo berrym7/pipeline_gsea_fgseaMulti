@@ -1,0 +1,9 @@
+{
+	"version": 1,
+	"attached_datasets": [
+		{
+			"id": "2435a1d5-896d-4053-bb44-5c4615cac326",
+			"mount": "single_deseq2_pipeline_out"
+		}
+	]
+}

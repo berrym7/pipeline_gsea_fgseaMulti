@@ -1,6 +1,6 @@
 # Inputs
 DESEQ2=$(find -L /data -name "DEG.tsv")
-PERTURBATION_ID=$(echo $COUNTS | cut -d"/" -f3)
+PERTURBATION_ID=$(echo $DESEQ2 | cut -d"/" -f3)
 OUTPUT_DIRECTORY="/results/$PERTURBATION_ID/"
 
 if [ ! -d "$OUTPUT_DIRECTORY" ]; then
