@@ -4,6 +4,10 @@
 		{
 			"id": "2435a1d5-896d-4053-bb44-5c4615cac326",
 			"mount": "single_deseq2_pipeline_out"
+		},
+		{
+			"id": "6906e260-bd27-4dfb-90d6-566f83af278d",
+			"mount": "geneset"
 		}
 	]
 }

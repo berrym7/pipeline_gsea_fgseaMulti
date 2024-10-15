@@ -12,7 +12,7 @@ option_list <- list(
   make_option(
     c("-g", "--gene_set"), 
     type="character", 
-    help="a gene set file in gmt format", 
+    help="a gene set file in gmt or rds (list of gene set names where the value is a vector of ensembl gene ids)", 
     metavar="character"
   ),
   make_option(
@@ -27,13 +27,8 @@ opt_parser <- OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
 
 deseq2_file <- opt$deg
-#deseq2_file <- "/data/single_deseq2_pipeline_out/DEG.tsv"
-
 gmt_file <- opt$gene_set
-#gmt_file <- "/code/msig_dummy.gmt"
-
 output_file <- opt$output
-#output_file <- "/results/fgsea_out.tsv"  
 
 run_fgsea <- function(deseq2_file, gmt_file, output_file) {
   deseq2_results <- read.table(deseq2_file, sep = "\t", header = TRUE, row.names = 1)
@@ -43,7 +38,11 @@ run_fgsea <- function(deseq2_file, gmt_file, output_file) {
   
   ranked_genes <- setNames(ranking_stat, rownames(deseq2_results))
   
-  pathways <- gmtPathways(gmt_file)
+  if (endsWith(gmt_file, ".rds")) {
+    pathways <- readRDS(gmt_file)
+  } else if (endsWith(gmt_file, ".gmt")) {
+    pathways <- gmtPathways(gmt_file)
+  }
   
   fgsea_res <- fgsea(
     pathways = pathways, 
@@ -52,9 +51,14 @@ run_fgsea <- function(deseq2_file, gmt_file, output_file) {
   
   fgsea_res <- fgsea_res[order(fgsea_res$NES, decreasing = TRUE)]
   
+  fgsea_res$pval[fgsea_res$pval == 0] <- 2e-308
+  fgsea_res$signed_logP <- -log10(fgsea_res$pval) * sign(fgsea_res$NES)
+  
   fwrite(fgsea_res, output_file, sep='\t')
   return(fgsea_res)
 }
 
 gsea_results <- run_fgsea(deseq2_file, gmt_file, output_file)
+
+print("Complete!")
 
