@@ -10,7 +10,7 @@ then
     echo "Output directory : $OUTPUT_DIRECTORY"
     echo "Gene Set : $GENE_SET"
 
-    output=${OUTPUT_DIRECTORY}gsea.tsv
+    output=${OUTPUT_DIRECTORY}
 
     Rscript fgsea.R \
         --deg $DESEQ2 \
