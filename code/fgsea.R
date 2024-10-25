@@ -46,11 +46,17 @@ run_fgsea <- function(deseq2_file, gmt_file, output_dir) {
   
   # change to fgsea multilevel
   # Adding gene set size cut offs (500max. 20min)
-  #fgseaMultilevel(pathways = genesets, stats = ranked_genes, minSize = 20, maxSize = 500)
-  fgsea_res <- fgsea(
+  fgsea_res <- fgseaMultilevel(
     pathways = pathways, 
-    stats = ranked_genes
+    stats = ranked_genes, 
+    minSize = 20, 
+    maxSize = 500
     )
+
+  #fgsea_res <- fgsea(
+  #  pathways = pathways, 
+  #  stats = ranked_genes
+  #  )
   
   fgsea_res <- fgsea_res[order(fgsea_res$NES, decreasing = TRUE)]
   
@@ -58,9 +64,9 @@ run_fgsea <- function(deseq2_file, gmt_file, output_dir) {
   fgsea_res$signed_logP <- -log10(fgsea_res$pval) * sign(fgsea_res$NES)
   
   output_gsea <- paste0(output_dir, 'gsea.tsv')
-  output_deg <- paste0(output_dir, 'deg.tsv')
+  #output_deg <- paste0(output_dir, 'deg.tsv')
   fwrite(fgsea_res, output_gsea, sep='\t')
-  fwrite(deseq2_results, output_deg, sep='\t')
+  #fwrite(deseq2_results, output_deg, sep='\t')
   
   return(fgsea_res)
 }
