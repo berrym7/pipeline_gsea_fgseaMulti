@@ -44,6 +44,9 @@ run_fgsea <- function(deseq2_file, gmt_file, output_dir) {
     pathways <- gmtPathways(gmt_file)
   }
   
+  # change to fgsea multilevel
+  # Adding gene set size cut offs (500max. 20min)
+  #fgseaMultilevel(pathways = genesets, stats = ranked_genes, minSize = 20, maxSize = 500)
   fgsea_res <- fgsea(
     pathways = pathways, 
     stats = ranked_genes
