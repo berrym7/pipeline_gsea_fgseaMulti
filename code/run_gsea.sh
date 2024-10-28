@@ -11,6 +11,7 @@ then
 
 
     Rscript fgsea.R --deg $DESEQ2 --output $output --gene_set $GENE_SET
+    echo "$PERTURBATION_ID has run to completetion"
 
     else
     echo "Something is wrong with $PERTURBATION_ID"
