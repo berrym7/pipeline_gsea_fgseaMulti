@@ -11,6 +11,6 @@ then
     Rscript fgsea.R --deg $DESEQ2 --output $output --gene_set $GENE_SET
 
     else
-    echo "This program requires something thats missing."
+    echo "This program is a doos"
 
 fi
