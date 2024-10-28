@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Inputs
 DESEQ2=$(find -L /data -name "DEG.tsv")
 PERTURBATION_ID=$(echo $DESEQ2 | cut -d"/" -f3)

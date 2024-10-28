@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -ex
 
 source ./config.sh
