@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"parameters": [
+		{
+			"id": "hAhwlD0yFYdcXbuw",
+			"name": "gene_set",
+			"description": "gene set in RDS to use for GSEA",
+			"type": "file"
+		}
+	]
+}
