@@ -9,7 +9,7 @@ then
 
     output=${OUTPUT_DIRECTORY}
 
-    Rscript fgsea.R --deg $DESEQ2 --output $output --gene_set $GENE_SET
+    echo "Rscript fgsea.R --deg $DESEQ2 --output $output --gene_set $GENE_SET"
 
     else
     echo "This program doesnt work"
