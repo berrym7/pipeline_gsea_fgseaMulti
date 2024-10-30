@@ -31,9 +31,7 @@ gmt_file <- opt$gene_set
 output_file <- opt$output
 
 run_fgsea <- function(deseq2_file, gmt_file, output_dir) {
-  '''
-  run fgsea multilevel GSEA on deseq2 results sorted on stat
-  '''
+  ## run fgsea multilevel GSEA on deseq2 results sorted on stat
   deseq2_results <- read.table(deseq2_file, sep = "\t", header = TRUE, row.names = 1)
   deseq2_results <- deseq2_results[order(deseq2_results$stat, decreasing = TRUE), ]
   
