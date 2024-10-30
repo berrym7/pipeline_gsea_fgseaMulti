@@ -31,21 +31,26 @@ gmt_file <- opt$gene_set
 output_file <- opt$output
 
 run_fgsea <- function(deseq2_file, gmt_file, output_dir) {
+  '''
+  run fgsea multilevel GSEA on deseq2 results sorted on stat
+  '''
   deseq2_results <- read.table(deseq2_file, sep = "\t", header = TRUE, row.names = 1)
   deseq2_results <- deseq2_results[order(deseq2_results$stat, decreasing = TRUE), ]
   
+  # ranking on stat
   ranking_stat <- deseq2_results$stat
   
   ranked_genes <- setNames(ranking_stat, rownames(deseq2_results))
   
+  # allows user to input rds or gmt pathways
+  # pipeline takes in rds
   if (endsWith(gmt_file, ".rds")) {
     pathways <- readRDS(gmt_file)
   } else if (endsWith(gmt_file, ".gmt")) {
     pathways <- gmtPathways(gmt_file)
   }
   
-  # change to fgsea multilevel
-  # Adding gene set size cut offs (500max. 20min)
+  # fgsea multilevel with gene set size cut offs (500max. 20min)
   fgsea_res <- fgseaMultilevel(
     pathways = pathways, 
     stats = ranked_genes, 
@@ -60,6 +65,7 @@ run_fgsea <- function(deseq2_file, gmt_file, output_dir) {
   
   fgsea_res <- fgsea_res[order(fgsea_res$NES, decreasing = TRUE)]
   
+  # replace 0 pval with lowest value for signed log P calculations
   fgsea_res$pval[fgsea_res$pval == 0] <- 2e-308
   fgsea_res$signed_logP <- -log10(fgsea_res$pval) * sign(fgsea_res$NES)
   
